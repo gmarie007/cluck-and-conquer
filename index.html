@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cluck &amp; Conquer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lora:ital,wght@0,400;0,600;1,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="topbar-left">
+    <h1 class="game-title">🐣 Cluck &amp; Conquer</h1>
+    <span class="subtitle">a cozy egg-to-do adventure</span>
+  </div>
+  <div class="topbar-right">
+    <button id="catalog-toggle" class="btn-catalog">
+      📖 Catalog
+      <span id="catalog-total-badge" class="catalog-badge">0</span>
+    </button>
+  </div>
+</header>
+
+<!-- EGG BANK -->
+<div class="egg-bank-bar" id="egg-bank-bar">
+  <span class="egg-bank-label">🥚 Egg Bank</span>
+  <div class="egg-bank-slots" id="egg-bank-slots"></div>
+  <span class="egg-bank-status" id="egg-bank-status"></span>
+</div>
+
+<!-- BARNYARD -->
+<main class="barnyard-wrapper">
+  <div class="barnyard" id="barnyard">
+    <div class="barnyard-scenery">
+      <div class="fence fence-top"></div>
+      <div class="fence fence-bottom"></div>
+      <div class="barn-deco">🏚️</div>
+      <div class="tree-deco tree-left">🌳</div>
+      <div class="tree-deco tree-right">🌲</div>
+      <div class="sun-deco">☀️</div>
+    </div>
+    <div class="barnyard-hint" id="barnyard-hint">Click anywhere in the yard to place an egg…</div>
+  </div>
+</main>
+
+<!-- CATALOG PANEL -->
+<aside class="catalog-panel" id="catalog-panel">
+  <div class="catalog-header">
+    <h2>🐔 Chicken Catalog</h2>
+    <button class="catalog-close" id="catalog-close">✕</button>
+  </div>
+  <div class="catalog-body" id="catalog-body"></div>
+</aside>
+<div class="catalog-overlay" id="catalog-overlay"></div>
+
+<!-- EGG DETAIL MODAL -->
+<div class="modal-backdrop" id="egg-modal-backdrop">
+  <div class="modal egg-modal" id="egg-modal">
+    <button class="modal-close" id="egg-modal-close">✕</button>
+    <div id="egg-modal-content"></div>
+  </div>
+</div>
+
+<!-- CHICKEN DETAIL MODAL -->
+<div class="modal-backdrop" id="chicken-modal-backdrop">
+  <div class="modal chicken-modal" id="chicken-modal">
+    <button class="modal-close" id="chicken-modal-close">✕</button>
+    <div id="chicken-modal-content"></div>
+  </div>
+</div>
+
+<!-- CYCLE COMPLETE POPUP -->
+<div class="modal-backdrop" id="cycle-modal-backdrop">
+  <div class="modal cycle-modal" id="cycle-modal">
+    <div class="cycle-art">🎊</div>
+    <h2>Congratulations you hatched all 5 eggs!</h2>
+    <p class="cycle-subtitle">Very productive!</p>
+    <button id="replenish-btn" class="btn-primary">🥚 Get New Egg Bank</button>
+  </div>
+</div>
+
+<!-- TASK TITLE PROMPT MODAL -->
+<div class="modal-backdrop" id="task-prompt-backdrop">
+  <div class="modal task-prompt-modal">
+    <h2>🥚 Name Your Task</h2>
+    <p class="task-prompt-sub">What needs to hatch from this egg?</p>
+    <input type="text" id="task-title-input" class="task-input"
+           placeholder="e.g. Finish the report…" maxlength="80" autocomplete="off" />
+    <div class="task-prompt-actions">
+      <button id="task-cancel-btn" class="btn-secondary">Cancel</button>
+      <button id="task-confirm-btn" class="btn-primary">Place Egg 🥚</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-container" id="toast-container"></div>
+
+<script src="chickens.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
