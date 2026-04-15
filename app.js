@@ -42,7 +42,7 @@ const EGG_EMOJI_BY_PHASE = {
   rare:  ['🥚','🥚','🥚','🥚'],
 };
 // Visual variety by phase
-const EGG_PHASE_EMOJI = ['🥚','🥚','🥚','🪺'];
+const EGG_PHASE_EMOJI = ['🥚','🥚','🥚','🐣'];
 
 // ── State ────────────────────────────────────────────────────
 let state = loadState();
