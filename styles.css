@@ -258,6 +258,8 @@ body {
   filter: drop-shadow(0 0 8px #4a8a00) drop-shadow(1px 3px 4px rgba(0,0,0,0.3));
   animation: egg-rot-float 3s ease-in-out infinite;
 }
+.egg-graphic .rotten-egg-img { width: 1em; height: auto; }
+.egg-modal-phase-art .rotten-egg-img { width: 1em; height: auto; }
 @keyframes egg-pulse {
   0%, 100% { transform: scale(1); }
   50%       { transform: scale(1.08); }

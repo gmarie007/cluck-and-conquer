@@ -296,7 +296,7 @@ function renderEggs() {
 
     el.innerHTML = `
       <div class="egg-graphic">
-        ${rotten ? '🟢' : EGG_PHASE_EMOJI[phase]}
+        ${rotten ? '<img src="assets/rotten egg.png" alt="Rotten egg" class="rotten-egg-img" />' : EGG_PHASE_EMOJI[phase]}
         <span class="egg-crack">${phase >= 2 ? '✨' : ''}</span>
       </div>
       <div class="egg-tier-dot ${egg.tier}"></div>
@@ -381,7 +381,7 @@ function openEggModal(eggId) {
 
   if (rotten) {
     bodyHtml = `
-      <div class="egg-modal-phase-art">🟢</div>
+      <div class="egg-modal-phase-art"><img src="assets/rotten egg.png" alt="Rotten egg" class="rotten-egg-img" /></div>
       <div style="text-align:center;margin-bottom:8px;">
         <span class="egg-modal-tier-badge tier-badge-${egg.tier}">${capitalise(egg.tier)}</span>
       </div>
