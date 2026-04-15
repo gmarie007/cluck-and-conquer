@@ -42,7 +42,7 @@ const EGG_EMOJI_BY_PHASE = {
   rare:  ['🥚','🥚','🥚','🥚'],
 };
 // Visual variety by phase
-const EGG_PHASE_EMOJI = ['🥚','🥚','🥚',''];
+const EGG_PHASE_EMOJI = ['🥚','🥚','🥚','🪺'];
 
 // ── State ────────────────────────────────────────────────────
 let state = loadState();
@@ -345,7 +345,7 @@ function renderCatalog() {
       const row = document.createElement('div');
       row.className = 'catalog-chicken-row';
       row.innerHTML = `
-        <span class="catalog-chicken-emoji ${locked ? 'locked' : ''}">${chicken.emoji}</span>
+        <img src="assets/${chicken.name}.png" class="catalog-chicken-emoji ${locked ? 'locked' : ''}" alt="${locked ? '' : chicken.name}" />
         <div class="catalog-chicken-info">
           <div class="catalog-chicken-name ${locked ? 'locked' : ''}">${locked ? '???' : chicken.name}</div>
           <div class="catalog-chicken-tier-label">${capitalise(tier)}</div>
@@ -482,7 +482,7 @@ function openChickenModal(chickenId, locked) {
   } else {
     html = `
       <div class="chicken-modal-header">
-        <div class="chicken-modal-emoji">${chicken.emoji}</div>
+        <img src="assets/${chicken.name}.png" class="chicken-modal-emoji" alt="${chicken.name}" />
         <div class="chicken-modal-meta">
           <h3>${chicken.name}</h3>
           <div class="chicken-modal-tier" style="color:var(--${chicken.tier === 'basic' ? 'basic' : chicken.tier === 'fancy' ? 'fancy' : 'rare'}-color)">${capitalise(chicken.tier)}</div>
@@ -594,7 +594,7 @@ function showChickenOnBoard(egg) {
 
   const chicken = CHICKEN_MAP[egg.chickenId];
   el.innerHTML = `
-    <div class="chicken-emoji">${chicken.emoji}</div>
+    <img src="assets/${chicken.name}.png" class="chicken-emoji" alt="${chicken.name}" />
     <div class="chicken-name-label">${chicken.name}</div>
   `;
   barnyard.appendChild(el);
