@@ -192,13 +192,13 @@ function bankRemaining() {
 // ============================================================
 //  EGG CREATION / PLACEMENT
 // ============================================================
-function createEgg(x, y, tier, title) {
+function createEgg(nestIndex, tier, title) {
   return {
     id: 'egg_' + Date.now() + '_' + Math.random().toString(36).slice(2,7),
     cycleId: state.cycleId,
     tier,
     title,
-    x, y,
+    nestIndex,
     placedTs: Date.now(),
     resolvedTs: null,
     state: 'active', // active | completed | deleted | rotten
@@ -207,13 +207,23 @@ function createEgg(x, y, tier, title) {
   };
 }
 
-function canPlace(x, y) {
-  for (const egg of state.placedEggs) {
-    if (egg.state === 'completed' || egg.state === 'deleted') continue;
-    const dx = egg.x - x, dy = egg.y - y;
-    if (Math.sqrt(dx*dx + dy*dy) < EGG_RADIUS * 2) return false;
-  }
-  return true;
+function isNestOccupied(nestIndex) {
+  return state.placedEggs.some(e =>
+    e.nestIndex === nestIndex &&
+    e.state !== 'completed' && e.state !== 'deleted'
+  );
+}
+
+function getNestCenter(nestIndex) {
+  const slots = document.querySelectorAll('.nest-slot');
+  const slot = slots[nestIndex];
+  if (!slot) return { x: 0, y: 0 };
+  const barnyardRect = barnyard.getBoundingClientRect();
+  const slotRect = slot.getBoundingClientRect();
+  return {
+    x: slotRect.left - barnyardRect.left + slotRect.width / 2,
+    y: slotRect.top  - barnyardRect.top  + slotRect.height * 0.3,
+  };
 }
 
 function getCurrentBankComposition() {
@@ -233,8 +243,15 @@ function getCurrentBankComposition() {
 function render() {
   renderBankBar();
   renderEggs();
+  renderNestStates();
   renderCatalog();
   updateHint();
+}
+
+function renderNestStates() {
+  document.querySelectorAll('.nest-slot').forEach((slot, i) => {
+    slot.classList.toggle('occupied', isNestOccupied(i));
+  });
 }
 
 function renderBankBar() {
@@ -281,8 +298,9 @@ function renderEggs() {
     const el = document.createElement('div');
     el.className = 'egg-token';
     el.dataset.id = egg.id;
-    el.style.left = egg.x + 'px';
-    el.style.top  = egg.y + 'px';
+    const pos = getNestCenter(egg.nestIndex);
+    el.style.left = pos.x + 'px';
+    el.style.top  = pos.y + 'px';
 
     const rotten = isRotten(egg.placedTs);
     if (rotten && egg.state !== 'rotten') {
@@ -549,8 +567,9 @@ function completeEgg(eggId) {
   state.catalog[chicken.id] = (state.catalog[chicken.id] || 0) + 1;
   saveState();
 
+  const hatchPos = getNestCenter(egg.nestIndex);
   playHatchSound();
-  spawnParticles(egg.x, egg.y);
+  spawnParticles(hatchPos.x, hatchPos.y);
   showChickenOnBoard(egg);
   renderEggs();
   renderBankBar();
@@ -588,8 +607,9 @@ function replenishBank() {
 function showChickenOnBoard(egg) {
   const el = document.createElement('div');
   el.className = 'chicken-token';
-  el.style.left = egg.x + 'px';
-  el.style.top  = egg.y + 'px';
+  const pos = getNestCenter(egg.nestIndex);
+  el.style.left = pos.x + 'px';
+  el.style.top  = pos.y + 'px';
   el.dataset.eggId = egg.id;
 
   const chicken = CHICKEN_MAP[egg.chickenId];
@@ -702,33 +722,26 @@ function showToast(msg) {
 // ============================================================
 //  BARNYARD CLICK → PLACEMENT FLOW
 // ============================================================
-barnyard.addEventListener('click', (e) => {
-  // Ignore if clicking an egg
-  if (e.target.closest('.egg-token') || e.target.closest('.chicken-token')) return;
-  // Ignore if any modal is open
-  if (document.querySelector('.modal-backdrop.open')) return;
+document.querySelectorAll('.nest-slot').forEach(slot => {
+  slot.addEventListener('click', () => {
+    if (document.querySelector('.modal-backdrop.open')) return;
 
-  const comp = getCurrentBankComposition();
-  if (comp.available <= 0) {
-    showToast('🥚 No eggs left in this bank. Resolve active eggs first!');
-    return;
-  }
+    const nestIndex = parseInt(slot.dataset.nest);
+    if (isNestOccupied(nestIndex)) return;
 
-  const rect = barnyard.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
+    const comp = getCurrentBankComposition();
+    if (comp.available <= 0) {
+      showToast('🥚 No eggs left in this bank. Resolve active eggs first!');
+      return;
+    }
 
-  if (!canPlace(x, y)) {
-    showToast('⚠️ Too close to another egg!');
-    return;
-  }
+    const tier = comp.tiers[BANK_SIZE - comp.available];
+    pendingPlacement = { nestIndex, tier };
 
-  const tier = comp.tiers[BANK_SIZE - comp.available];
-  pendingPlacement = { x, y, tier };
-
-  taskTitleInput.value = '';
-  taskPromptBackdrop.classList.add('open');
-  setTimeout(() => taskTitleInput.focus(), 80);
+    taskTitleInput.value = '';
+    taskPromptBackdrop.classList.add('open');
+    setTimeout(() => taskTitleInput.focus(), 80);
+  });
 });
 
 // ── Task prompt actions ───────────────────────────────────────
@@ -756,8 +769,7 @@ function confirmTaskPlacement() {
   if (!pendingPlacement) return;
 
   const egg = createEgg(
-    pendingPlacement.x,
-    pendingPlacement.y,
+    pendingPlacement.nestIndex,
     pendingPlacement.tier,
     title
   );
@@ -767,6 +779,7 @@ function confirmTaskPlacement() {
   taskPromptBackdrop.classList.remove('open');
 
   renderEggs();
+  renderNestStates();
   renderBankBar();
   updateHint();
   showToast(`🥚 Egg placed! Task: "${title}"`);
@@ -847,6 +860,9 @@ function escapeHtml(s) {
 //  INIT
 // ============================================================
 function init() {
+  // Drop any eggs saved before nest-based placement was introduced
+  state.placedEggs = state.placedEggs.filter(e => e.nestIndex !== undefined);
+
   // Resolve any eggs that became rotten while page was closed
   state.placedEggs.forEach(egg => {
     if (egg.state === 'active' && isRotten(egg.placedTs)) {
