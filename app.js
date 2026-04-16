@@ -550,7 +550,7 @@ function acknowledgeRotten(eggId) {
   renderEggs();
   renderBankBar();
   updateHint();
-  showToast('🟢 The rotten egg was cleared.');
+  showToast('<img src="assets/rotten egg.png" alt="" style="width:1.2em;height:auto;vertical-align:middle;margin-right:6px;"> The rotten egg was cleared.', true);
   checkCycleComplete();
 }
 
@@ -711,10 +711,14 @@ function playHatchSound() {
 // ============================================================
 //  TOAST
 // ============================================================
-function showToast(msg) {
+function showToast(msg, isHtml = false) {
   const el = document.createElement('div');
   el.className = 'toast';
-  el.textContent = msg;
+  if (isHtml) {
+    el.innerHTML = msg;
+  } else {
+    el.textContent = msg;
+  }
   toastContainer.appendChild(el);
   setTimeout(() => el.remove(), 2900);
 }
