@@ -616,8 +616,8 @@ body {
   padding: 12px 14px;
   border: 1.5px solid var(--hay-dark);
 }
-.chicken-modal-trait { font-family: var(--font-label); font-size: 0.95rem; color: var(--earth); margin-bottom: 4px; }
-.chicken-modal-talent { font-family: var(--font-label); font-size: 0.88rem; color: var(--earth-mid); font-style: italic; }
+.chicken-modal-trait { font-family: var(--font-label); font-size: 0.95rem; color: #3d2b10; margin-bottom: 4px; }
+.chicken-modal-talent { font-family: var(--font-label); font-size: 0.88rem; color: #5a3e1e; font-style: italic; }
 .chicken-modal-locked {
   text-align: center;
   padding: 20px;
