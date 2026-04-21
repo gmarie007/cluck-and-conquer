@@ -926,12 +926,12 @@ body {
   .egg-bank-label, .egg-bank-status { display: none; }
 
   /* Scenery — shrink assets */
-  .barn-deco { width: 5.5rem; bottom: 0; }
-  .tree-deco { width: 5.5rem; bottom: 0; }
-  .sun-deco  { width: 4rem; right: auto; left: 50%; transform: translateX(-50%); }
+  .barn-deco { width: 5.5rem; bottom: 28px; }
+  .tree-deco { width: 5.5rem; bottom: 28px; }
+  .sun-deco  { width: 7rem; right: auto; left: 50%; transform: translateX(-50%); }
 
   /* Nest row — fit between smaller assets */
-  .nest-row  { left: 5.5rem; right: 5.5rem; bottom: 30px; }
+  .nest-row  { left: 5.5rem; right: 5.5rem; bottom: 60px; }
   .nest-slot { width: 2.2rem; }
   .nest-slot img { width: 2.2rem; }
 
