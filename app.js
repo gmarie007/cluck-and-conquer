@@ -792,6 +792,19 @@ function confirmTaskPlacement() {
 // ============================================================
 //  CATALOG PANEL
 // ============================================================
+// ============================================================
+//  INSTRUCTIONS MODAL
+// ============================================================
+const instructionsToggle  = document.getElementById('instructions-toggle');
+const instructionsBackdrop = document.getElementById('instructions-backdrop');
+const instructionsClose   = document.getElementById('instructions-close');
+
+instructionsToggle.addEventListener('click', () => instructionsBackdrop.classList.add('open'));
+instructionsClose.addEventListener('click',  () => instructionsBackdrop.classList.remove('open'));
+instructionsBackdrop.addEventListener('click', (e) => {
+  if (e.target === instructionsBackdrop) instructionsBackdrop.classList.remove('open');
+});
+
 catalogToggle.addEventListener('click', () => {
   catalogPanel.classList.add('open');
   catalogOverlay.classList.add('open');

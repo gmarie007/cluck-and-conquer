@@ -18,6 +18,7 @@
     <span class="subtitle">a cozy egg-to-do adventure</span>
   </div>
   <div class="topbar-right">
+    <button id="instructions-toggle" class="btn-catalog">❓ How to Play</button>
     <button id="catalog-toggle" class="btn-catalog">
       📖 Catalog
       <span id="catalog-total-badge" class="catalog-badge">0</span>
@@ -98,6 +99,55 @@
     <div class="task-prompt-actions">
       <button id="task-cancel-btn" class="btn-secondary">Cancel</button>
       <button id="task-confirm-btn" class="btn-primary">Place Egg 🥚</button>
+    </div>
+  </div>
+</div>
+
+<!-- INSTRUCTIONS MODAL -->
+<div class="modal-backdrop" id="instructions-backdrop">
+  <div class="modal instructions-modal" id="instructions-modal">
+    <button class="modal-close" id="instructions-close">✕</button>
+    <h2 class="instructions-title">🐣 How to Play</h2>
+
+    <p class="instructions-intro">Cluck &amp; Conquer is a gamified productivity app. Assign your real-world tasks to eggs, tend them as they mature, and hatch a surprise chicken when the work is done. Complete tasks, grow your flock.</p>
+
+    <div class="instructions-section">
+      <h3>The Egg Bank</h3>
+      <p>Each cycle gives you <strong>5 eggs</strong> to work with. Your first bank is all Basic eggs. After that, banks are a mix of Basic, Fancy, and Rare — rarer eggs hatch rarer chickens.</p>
+    </div>
+
+    <div class="instructions-section">
+      <h3>Placing an Egg</h3>
+      <p>Click any empty nest to place an egg. You'll be asked to name the task that egg represents. One egg per nest — choose wisely!</p>
+    </div>
+
+    <div class="instructions-section">
+      <h3>Egg Phases</h3>
+      <p>Eggs mature over <strong>20 minutes</strong> across 4 phases (5 minutes each). Watch for the glow to grow. When the egg shows 🐣 it's ready to hatch. An egg left untouched for <strong>12 hours</strong> goes rotten and must be cleared without reward.</p>
+    </div>
+
+    <div class="instructions-section">
+      <h3>Hatching</h3>
+      <p>Click a mature egg and confirm your task is complete to hatch it. A chicken will appear in the barnyard — the tier of your egg influences which chicken you receive.</p>
+    </div>
+
+    <div class="instructions-section">
+      <h3>Egg Tiers &amp; Chicken Odds</h3>
+      <div class="instructions-tiers">
+        <div class="instructions-tier-row"><span class="tier-badge-basic tier-badge-pill">Basic</span><span>50% Basic chicken · 50% Fancy chicken</span></div>
+        <div class="instructions-tier-row"><span class="tier-badge-fancy tier-badge-pill">Fancy</span><span>50% Fancy chicken · 50% Rare chicken</span></div>
+        <div class="instructions-tier-row"><span class="tier-badge-rare tier-badge-pill">Rare</span><span>25% Basic · 50% Fancy · 25% Rare chicken</span></div>
+      </div>
+    </div>
+
+    <div class="instructions-section">
+      <h3>Completing a Cycle</h3>
+      <p>Resolve all 5 eggs — by hatching or deleting — to complete a cycle and claim a fresh egg bank with mixed tiers.</p>
+    </div>
+
+    <div class="instructions-section">
+      <h3>The Catalog</h3>
+      <p>There are <strong>15 collectible chickens</strong> across three tiers. Open the Catalog to see which you've discovered and how many times each has been hatched.</p>
     </div>
   </div>
 </div>
