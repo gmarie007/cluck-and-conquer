@@ -911,3 +911,35 @@ body {
   0%   { opacity: 1; transform: translate(0,0) scale(1); }
   100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.3); }
 }
+
+/* ── Mobile (portrait phone) ───────────────────────────────── */
+@media (max-width: 600px) {
+  /* Topbar */
+  .topbar { padding: 6px 12px; }
+  .game-title { font-size: 1.2rem; }
+  .subtitle { display: none; }
+  .btn-catalog { font-size: 0.85rem; padding: 5px 10px; }
+  .btn-label-hide { display: none; }
+
+  /* Egg bank — slots only */
+  .egg-bank-bar { justify-content: center; padding: 6px 12px; }
+  .egg-bank-label, .egg-bank-status { display: none; }
+
+  /* Scenery — shrink assets */
+  .barn-deco { width: 5.5rem; bottom: 0; }
+  .tree-deco { width: 5.5rem; bottom: 0; }
+  .sun-deco  { width: 4rem; right: auto; left: 50%; transform: translateX(-50%); }
+
+  /* Nest row — fit between smaller assets */
+  .nest-row  { left: 5.5rem; right: 5.5rem; bottom: 30px; }
+  .nest-slot { width: 2.2rem; }
+  .nest-slot img { width: 2.2rem; }
+
+  /* Egg & chicken sizing */
+  .egg-graphic { font-size: 1.4rem; }
+  .chicken-emoji { width: 3.5rem; }
+  .chicken-name-label { font-size: 0.65rem; }
+
+  /* Barnyard hint */
+  .barnyard-hint { font-size: 0.9rem; }
+}
