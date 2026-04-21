@@ -931,13 +931,14 @@ body {
   .egg-bank-bar { justify-content: center; padding: 6px 12px; }
   .egg-bank-label, .egg-bank-status { display: none; }
 
-  /* Scenery — shrink assets */
-  .barn-deco { width: 5.5rem; bottom: 36px; }
-  .tree-deco { width: 5.5rem; bottom: 36px; }
+  /* Scenery — shrink assets, shift up by home indicator height */
+  .barn-deco { width: 5.5rem; bottom: calc(36px + env(safe-area-inset-bottom, 0px)); }
+  .tree-deco { width: 5.5rem; bottom: calc(36px + env(safe-area-inset-bottom, 0px)); }
   .sun-deco  { width: 14rem; right: auto; left: 50%; transform: translateX(-50%); }
+  .fence-bottom { bottom: env(safe-area-inset-bottom, 0px); }
 
   /* Nest row — fit between smaller assets */
-  .nest-row  { left: 5.5rem; right: 5.5rem; bottom: 90px; }
+  .nest-row  { left: 5.5rem; right: 5.5rem; bottom: calc(90px + env(safe-area-inset-bottom, 0px)); }
   .nest-slot { width: 2.2rem; }
   .nest-slot img { width: 2.2rem; }
 
